@@ -99,14 +99,44 @@ const handleBlockPositionBySize = ({ fieldRef, hoverBlock, size = 10 }) => (e) =
 	}
 };
 
+let prevId = "";
+
 const FieldBase = (props) => {
+	const [project, updateProject] = useState(Project);
 	const { size } = props;
+
+	const handleMove = (e) => {
+		const id = e.target.id;
+
+		if (!id || !project[id].children) {
+			return;
+		}
+
+		const currentIndex = project[id].children.indexOf("__preview");
+
+		// remove prev
+		if (prevId && prevId !== id && currentIndex >= 0) {
+			project[prevId].children.slice(currentIndex, 1);
+		}
+
+		prevId = id;
+
+		if (currentIndex == -1) {
+			project[id].children.push("__preview");
+		}
+
+		// console.log(id, _project[id].children);
+		updateProject(project);
+	};
+
+	console.log(project);
 
 	return (
 		<Field
 			w={config.screen[size][0]}
+			onMouseMove={handleMove}
 		>
-			<Renderer id="__root" {...Project.__root} />
+			<Renderer id="__root" {...project.__root} project={project} />
 		</Field>
 	);
 };
@@ -140,7 +170,7 @@ const getRefsParams = (...args) => {
 	return acc;
 };
 
-const Renderer = ({ id, parentId, component, children, ...props }) => {
+const Renderer = ({ id, parentId, component, children, project, ...props }) => {
 	const Element = Components[component];
 
 	const handleWindowMouseMove = (e) => {
@@ -153,18 +183,20 @@ const Renderer = ({ id, parentId, component, children, ...props }) => {
 		console.log(placement);
 	};
 
+	console.log(children);
+
 	return (
 		<Element
 			{...props}
 			id={id}
-			onMouseMove={handleWindowMouseMove}
 		>
 			{children && children.map((id, index) => (
 				<Renderer
 					key={id}
 					id={id}
 					parentId={id}
-					{...Project[id]}
+					project={project}
+					{...project[id]}
 				/>
 			))}
 		</Element>
@@ -174,6 +206,7 @@ const Renderer = ({ id, parentId, component, children, ...props }) => {
 const Components = {
 	["root"]: Root,
 	["div"]: Div,
+	["__preview"]: () => <span>preview</span>,
 };
 
 const Project = {
