@@ -25,7 +25,8 @@ module.exports = {
 			"config": path.resolve(__src, "config"),
 			"components": path.resolve(__src, "components"),
 			"containers": path.resolve(__src, "containers"),
-		}
+			"store": path.resolve(__src, "store"),
+		},
 	},
 	module: {
 		rules: [
@@ -37,7 +38,7 @@ module.exports = {
 					options: {
 						presets: ["@babel/preset-env", "@babel/preset-react"],
 						plugins: ["babel-plugin-styled-components"],
-					}
+					},
 				},
 			},
 		],
