@@ -1,7 +1,5 @@
 export default {
 	__root: {
-		fullWidth: true,
-		fullHeigth: true,
 		component: "__root",
 		children: [
 			"element-1",

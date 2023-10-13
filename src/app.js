@@ -2,12 +2,13 @@ import React from "react";
 import store from "./store";
 import { Provider } from "react-redux";
 
-import FieldBase from "./containers/FieldBase";
+import Editor from "./containers/Editor";
+import Renderer from "./containers/Renderer";
 
 const App = () => {
   return (
 	<Provider store={store}>
-		<FieldBase />
+		<Editor renderer={Renderer} />
 	</Provider>
 	);
 };

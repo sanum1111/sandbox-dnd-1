@@ -11,7 +11,7 @@ export const createElement = (state, { payload }) => {
     const { id, ...props } = payload;
 
     if (!id) {
-        throw new Error("[createElement] action key cannot be empty.");
+        throw new Error("[createElement] action id cannot be empty.");
     }
 
     state[id] = { ...props };
@@ -37,28 +37,4 @@ export const removeChild = (state, { payload }) => {
     const i = index || state[id].children.indexOf(child);
 
     state[id].children.slice(i, 1);
-};
-
-export const appendPreview = (state, { payload }) => {
-    const { id, prevId, index = 0, child = "__preview" } = payload;
-
-    if (!id) {
-        throw new Error("[appendPreview] action params cannot be empty.");
-    }
-
-    if (prevId) {
-        const prevIndex = state[prevId].children.indexOf(child);
-
-        if (prevIndex >= 0) {
-            state[prevId].children.splice(prevIndex, 1);
-        }
-    }
-
-    const currentIndex = state[id].children.indexOf(child);
-
-    if (currentIndex >= 0) {
-        state[id].children.splice(currentIndex, 1);
-    }
-
-    state[id].children.splice(index, 0, child);
 };

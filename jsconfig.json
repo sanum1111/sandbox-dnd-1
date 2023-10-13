@@ -6,6 +6,7 @@
         "config/*": ["./src/config/*"],
         "components/*": ["./src/components/*"],
         "containers/*": ["./src/containers/*"],
+        "utils/*": ["./src/utils/*"],
         "store/*": ["./src/store/*"]
       }
   }

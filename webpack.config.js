@@ -25,6 +25,7 @@ module.exports = {
 			"config": path.resolve(__src, "config"),
 			"components": path.resolve(__src, "components"),
 			"containers": path.resolve(__src, "containers"),
+			"utils": path.resolve(__src, "utils"),
 			"store": path.resolve(__src, "store"),
 		},
 	},
